@@ -353,7 +353,7 @@
 <button class="music-btn paused" id="musicBtn" title="点击播放音乐 ♪">▶️</button>
 
 <!-- Background Music -->
-<audio id="bgm" loop preload="auto">
+<audio id="bgm" loop preload="auto" autoplay>
   <source src="今天你要嫁给我.mp3" type="audio/mpeg">
 </audio>
 
@@ -460,9 +460,10 @@
     card.appendChild(s);
   });
 
-  // ── Music control ──
+  // ── 立即播放 BGM ──
   const bgm = document.getElementById('bgm');
   const musicBtn = document.getElementById('musicBtn');
+  bgm.volume = 0.6;
 
   function updateBtnPlaying() {
     musicBtn.classList.remove('paused');
@@ -483,49 +484,19 @@
     musicBtn.title = '加载失败，点击重试';
   }
 
-  function tryPlay() {
-    if (!bgm.paused) return;
-    bgm.volume = 0.6;
-    bgm.play().then(updateBtnPlaying).catch(() => {});
-  }
+  bgm.play().then(updateBtnPlaying).catch(() => {});
+  bgm.addEventListener('canplay', () => { bgm.play().then(updateBtnPlaying).catch(() => {}); });
+  bgm.addEventListener('playing', updateBtnPlaying);
+  bgm.addEventListener('pause', updateBtnPaused);
+  bgm.addEventListener('error', updateBtnError);
 
-  function toggleMusic() {
+  musicBtn.addEventListener('click', () => {
     if (bgm.paused) {
-      bgm.load();
-      bgm.volume = 0.6;
       bgm.play().then(updateBtnPlaying).catch(updateBtnError);
     } else {
       bgm.pause();
       updateBtnPaused();
     }
-  }
-
-  musicBtn.addEventListener('click', toggleMusic);
-
-  bgm.addEventListener('error', function() {
-    updateBtnError();
-    console.log('音频加载失败');
-  });
-
-  bgm.addEventListener('playing', updateBtnPlaying);
-  bgm.addEventListener('pause', updateBtnPaused);
-
-  // 多事件触发首次自动播放
-  const events = ['click', 'touchstart', 'scroll', 'keydown'];
-  let autoplayTried = false;
-
-  events.forEach(evt => {
-    document.addEventListener(evt, function tryAutoplay() {
-      if (autoplayTried) return;
-      autoplayTried = true;
-      tryPlay();
-    }, { once: true });
-  });
-
-  // 如果页面加载完 BGM 已就绪，也尝试播放
-  bgm.addEventListener('canplay', function() {
-    bgm.volume = 0.6;
-    bgm.play().then(updateBtnPlaying).catch(() => {});
   });
 </script>
 

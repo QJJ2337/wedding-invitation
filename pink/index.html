@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: radial-gradient(ellipse at center, #2a1018 0%, #1a0a10 40%, #0f060a 100%);
+    background: radial-gradient(ellipse at center, #5c2a3a 0%, #3d1522 40%, #1f0810 100%);
     font-family: 'Noto Serif SC', serif;
     overflow-x: hidden;
   }
@@ -22,45 +22,37 @@
   /* Music button */
   .music-btn {
     position: fixed;
-    top: 24px;
-    right: 24px;
+    top: 24px; right: 24px;
     z-index: 10;
-    width: 44px;
-    height: 44px;
+    width: 44px; height: 44px;
     border-radius: 50%;
-    border: 2px solid #f0b8c8;
-    background: rgba(180, 60, 100, 0.8);
-    color: #ffe4ec;
+    border: 2px solid #f0c0d0;
+    background: rgba(210, 120, 150, 0.8);
+    color: #fff;
     font-size: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 16px rgba(255, 150, 180, 0.35);
+    box-shadow: 0 0 16px rgba(255, 180, 200, 0.35);
     transition: all 0.3s ease;
     animation: musicPulse 2s ease-in-out infinite;
   }
   .music-btn:hover {
-    background: rgba(200, 70, 110, 0.95);
-    box-shadow: 0 0 24px rgba(255, 150, 180, 0.6);
+    background: rgba(230, 130, 160, 0.95);
+    box-shadow: 0 0 24px rgba(255, 180, 200, 0.6);
     transform: scale(1.08);
   }
-  .music-btn.playing {
-    animation: musicSpin 3s linear infinite;
-    border-color: #ffe4ec;
-  }
-  .music-btn.paused {
-    animation: musicPulse 2s ease-in-out infinite;
-    opacity: 0.65;
-  }
+  .music-btn.playing { animation: musicSpin 3s linear infinite; border-color: #fff; }
+  .music-btn.paused { animation: musicPulse 2s ease-in-out infinite; opacity: 0.65; }
   @keyframes musicPulse {
-    0%, 100% { box-shadow: 0 0 10px rgba(255, 150, 180, 0.25); }
-    50% { box-shadow: 0 0 22px rgba(255, 150, 180, 0.5); }
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 180, 200, 0.25); }
+    50% { box-shadow: 0 0 22px rgba(255, 180, 200, 0.5); }
   }
   @keyframes musicSpin {
-    0%   { box-shadow: 0 0 16px rgba(255, 180, 200, 0.5); }
-    50%  { box-shadow: 0 0 30px rgba(255, 180, 200, 0.85); }
-    100% { box-shadow: 0 0 16px rgba(255, 180, 200, 0.5); }
+    0%   { box-shadow: 0 0 16px rgba(255, 200, 220, 0.5); }
+    50%  { box-shadow: 0 0 30px rgba(255, 200, 220, 0.85); }
+    100% { box-shadow: 0 0 16px rgba(255, 200, 220, 0.5); }
   }
 
   /* Floating particles */
@@ -87,25 +79,21 @@
   }
 
   /* Main card */
-  .card-wrapper {
-    position: relative;
-    z-index: 1;
-  }
+  .card-wrapper { position: relative; z-index: 1; }
 
   .card {
     position: relative;
-    width: 420px;
-    height: 560px;
-    /* Pink romantic gradient */
+    width: 420px; height: 560px;
+    /* Light pink gradient based on #ffc5d5 */
     background: linear-gradient(175deg,
-      #8b1a3d 0%,
-      #a3204a 4%,
-      #c2285a 10%,
-      #b81e50 45%,
-      #9e1842 55%,
-      #b81e50 90%,
-      #a3204a 96%,
-      #8b1a3d 100%
+      #e8a8b8 0%,
+      #f5bcc8 4%,
+      #ffc5d5 10%,
+      #fcc2d2 45%,
+      #f5bcc8 55%,
+      #fcc2d2 90%,
+      #f5bcc8 96%,
+      #e8a8b8 100%
     );
     border-radius: 16px;
     padding: 32px 34px 28px;
@@ -113,9 +101,9 @@
     flex-direction: column;
     justify-content: space-between;
     box-shadow:
-      0 0 50px rgba(220, 120, 150, 0.3),
-      0 0 120px rgba(200, 80, 120, 0.12),
-      0 20px 70px rgba(0, 0, 0, 0.6);
+      0 0 50px rgba(255, 180, 200, 0.35),
+      0 0 120px rgba(230, 140, 170, 0.15),
+      0 20px 70px rgba(0, 0, 0, 0.5);
     text-align: center;
     animation: cardFloat 3.5s ease-in-out infinite;
   }
@@ -125,13 +113,11 @@
     50% { transform: translateY(-6px); }
   }
 
-  /* Border frames */
   .card::before {
     content: '';
     position: absolute;
-    top: 10px; left: 10px;
-    right: 10px; bottom: 10px;
-    border: 1.5px solid rgba(240, 180, 195, 0.45);
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border: 1.5px solid rgba(255,255,255,0.5);
     border-radius: 10px;
     pointer-events: none;
   }
@@ -139,52 +125,46 @@
   .card::after {
     content: '';
     position: absolute;
-    top: 14px; left: 14px;
-    right: 14px; bottom: 14px;
-    border: 1px solid rgba(240, 180, 195, 0.25);
+    top: 14px; left: 14px; right: 14px; bottom: 14px;
+    border: 1px solid rgba(255,255,255,0.3);
     border-radius: 8px;
     pointer-events: none;
   }
 
-  /* Corner decorations */
   .corner {
     position: absolute;
     width: 44px; height: 44px;
-    border-color: #f0b8c8;
+    border-color: rgba(255,255,255,0.6);
     border-style: solid;
-    opacity: 0.8;
+    opacity: 0.9;
   }
   .corner-tl { top: 18px; left: 18px; border-width: 2.5px 0 0 2.5px; border-radius: 6px 0 0 0; }
   .corner-tr { top: 18px; right: 18px; border-width: 2.5px 2.5px 0 0; border-radius: 0 6px 0 0; }
   .corner-bl { bottom: 18px; left: 18px; border-width: 0 0 2.5px 2.5px; border-radius: 0 0 0 6px; }
   .corner-br { bottom: 18px; right: 18px; border-width: 0 2.5px 2.5px 0; border-radius: 0 0 6px 0; }
 
-  /* Top lantern */
   .top-lantern {
     font-size: 40px;
     margin-bottom: 0;
-    filter: drop-shadow(0 0 12px rgba(255, 150, 180, 0.6));
+    filter: drop-shadow(0 0 12px rgba(255, 200, 220, 0.6));
     animation: lanternGlow 2s ease-in-out infinite alternate;
   }
 
   @keyframes lanternGlow {
-    0%   { filter: drop-shadow(0 0 8px rgba(255, 150, 180, 0.4)); }
-    100% { filter: drop-shadow(0 0 22px rgba(255, 150, 180, 0.9)); }
+    0%   { filter: drop-shadow(0 0 8px rgba(255, 200, 220, 0.4)); }
+    100% { filter: drop-shadow(0 0 22px rgba(255, 200, 220, 0.9)); }
   }
 
-  /* Title */
+  /* Dark text on light pink bg */
   .title {
     font-size: 26px;
     font-weight: 900;
-    color: #ffe4ec;
+    color: #6b1a30;
     margin: 6px 0 4px;
     letter-spacing: 3px;
-    text-shadow:
-      0 0 10px rgba(255, 180, 200, 0.5),
-      0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(255,255,255,0.4);
   }
 
-  /* Divider */
   .divider {
     display: flex;
     align-items: center;
@@ -195,48 +175,41 @@
   .divider-line {
     flex: 1;
     height: 1.5px;
-    background: linear-gradient(90deg, transparent, #f0b8c8, transparent);
+    background: linear-gradient(90deg, transparent, rgba(140,40,60,0.4), transparent);
   }
   .divider-diamond {
     font-size: 12px;
-    color: #f0b8c8;
-    text-shadow: 0 0 6px rgba(255, 180, 200, 0.5);
+    color: #8b3a50;
   }
 
   .greeting {
     font-size: 17px;
-    color: #ffe4ec;
+    color: #6b1a30;
     margin: 8px 0;
     font-weight: 700;
     letter-spacing: 2px;
-    text-shadow: 0 0 8px rgba(255, 180, 200, 0.3);
   }
 
   .content {
     font-size: 15.5px;
-    color: #fdd0dc;
+    color: #7a2a40;
     line-height: 2.1;
     margin: 6px 0;
     letter-spacing: 1.8px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .content .highlight {
-    color: #ffe4ec;
+    color: #8b1a3d;
     font-weight: 700;
     font-size: 16px;
   }
 
-  /* Shuangxi */
   .shuangxi {
     font-size: 52px;
-    color: #ffe4ec;
+    color: #8b1a3d;
     margin: 8px 0;
     font-weight: 900;
-    text-shadow:
-      0 0 20px rgba(255, 160, 190, 0.7),
-      0 0 40px rgba(255, 140, 170, 0.4),
-      0 3px 6px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 15px rgba(180,60,100,0.3);
     animation: xiPulse 2s ease-in-out infinite;
   }
 
@@ -245,10 +218,9 @@
     50% { transform: scale(1.08); }
   }
 
-  /* Info boxes */
   .info-box {
-    background: rgba(0, 0, 0, 0.15);
-    border: 1.5px solid rgba(240, 180, 195, 0.45);
+    background: rgba(255,255,255,0.25);
+    border: 1.5px solid rgba(180,80,100,0.3);
     border-radius: 10px;
     padding: 10px 18px;
     margin: 8px 0;
@@ -256,7 +228,7 @@
 
   .info-box .icon-label {
     font-size: 14px;
-    color: #ffe4ec;
+    color: #6b1a30;
     font-weight: 700;
     margin-bottom: 3px;
     letter-spacing: 1px;
@@ -264,25 +236,23 @@
 
   .info-box .info-text {
     font-size: 14.5px;
-    color: #fdd0dc;
+    color: #5a1a2a;
     line-height: 1.8;
     letter-spacing: 1.2px;
   }
 
   .info-box .info-text .sub {
     font-size: 12px;
-    color: #e8a8b8;
+    color: #8b3a50;
   }
 
   .invite-line {
     font-size: 15.5px;
     font-weight: 700;
-    color: #ffe4ec;
+    color: #6b1a30;
     letter-spacing: 1.5px;
-    text-shadow: 0 0 8px rgba(255, 180, 200, 0.4);
   }
 
-  /* Rings */
   .rings {
     display: flex;
     justify-content: center;
@@ -292,7 +262,7 @@
   }
   .ring-icon {
     font-size: 24px;
-    filter: drop-shadow(0 0 6px rgba(255, 180, 200, 0.6));
+    filter: drop-shadow(0 0 6px rgba(180,80,120,0.4));
     animation: ringGlow 2s ease-in-out infinite alternate;
   }
   .ring-icon:nth-child(2) { animation-delay: 0.4s; }
@@ -305,15 +275,14 @@
   .bottom-lantern {
     font-size: 30px;
     margin-top: 4px;
-    opacity: 0.75;
-    filter: drop-shadow(0 0 8px rgba(255, 150, 180, 0.4));
+    opacity: 0.7;
+    filter: drop-shadow(0 0 8px rgba(255,200,220,0.4));
   }
 
-  /* Sparkles */
   .sparkle {
     position: absolute;
     width: 5px; height: 5px;
-    background: radial-gradient(circle, #fff0f5, #f0b8c8);
+    background: radial-gradient(circle, #fff, #ffd0e0);
     border-radius: 50%;
     pointer-events: none;
     animation: sparkle 1.8s ease-in-out infinite;
@@ -324,7 +293,6 @@
     50% { opacity: 0.9; transform: scale(1); }
   }
 
-  /* Responsive */
   @media (max-width: 460px) {
     .card {
       width: 94vw;
@@ -346,7 +314,7 @@
 
 <button class="music-btn paused" id="musicBtn" title="点击播放音乐 ♪">🥁</button>
 
-<audio id="bgm" loop preload="auto">
+<audio id="bgm" loop preload="auto" autoplay>
   <source src="今天你要嫁给我.mp3" type="audio/mpeg">
 </audio>
 
@@ -358,30 +326,22 @@
     <div class="corner corner-br"></div>
 
     <div class="top-lantern">🏮</div>
-
     <div class="title">💒喜➕喜＝囍❣️</div>
-
     <div class="divider">
       <div class="divider-line"></div>
       <span class="divider-diamond">◆</span>
       <div class="divider-line"></div>
     </div>
-
     <div class="greeting">✨💌 亲爱的工友：</div>
-
     <div class="content">
       🌺<span class="highlight">良辰已定</span>，吉日待访💞<br>
       🌹<span class="highlight">吾無星星</span>，遂邀良友💖
     </div>
-
     <div class="content">
       🥳<span class="highlight">敬备戳戳</span>，随候尊驾💞
     </div>
-
     <div class="shuangxi">囍</div>
-
     <div class="invite-line">💌诚挚的邀请您一起共赴晚餐❣️</div>
-
     <div class="info-box">
       <div class="icon-label">⏰ 时间</div>
       <div class="info-text">
@@ -389,57 +349,25 @@
         <span class="sub">（农历五月十四 · 周日）</span>
       </div>
     </div>
-
     <div class="info-box">
       <div class="icon-label">🏡 地址</div>
       <div class="info-text">
         新盛璟城一区一幢2103💞
       </div>
     </div>
-
     <div class="rings">
       <span class="ring-icon">💍</span>
       <span class="ring-icon">💍</span>
     </div>
-
     <div class="bottom-lantern">🏮</div>
   </div>
 </div>
 
 <script>
-  const particlesContainer = document.getElementById('particles');
-  const emojis = ['🌸', '🩷', '💗', '💖', '🎀', '🌷', '💐', '🪷', '✨', '💫', '💕'];
-
-  for (let i = 0; i < 30; i++) {
-    const p = document.createElement('span');
-    p.className = 'particle';
-    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (7 + Math.random() * 12) + 's';
-    p.style.animationDelay = Math.random() * 9 + 's';
-    p.style.fontSize = (14 + Math.random() * 24) + 'px';
-    particlesContainer.appendChild(p);
-  }
-
-  const card = document.querySelector('.card');
-  const positions = [
-    [8, 8], [92, 6], [6, 94], [94, 92],
-    [10, 50], [90, 48], [50, 8], [50, 94],
-    [25, 15], [75, 14], [28, 88], [76, 86]
-  ];
-  positions.forEach(([x, y], i) => {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = x + '%';
-    s.style.top = y + '%';
-    s.style.animationDelay = (i * 0.18) + 's';
-    s.style.width = (3 + Math.random() * 5) + 'px';
-    s.style.height = s.style.width;
-    card.appendChild(s);
-  });
-
+  // ── 立即播放 BGM ──
   const bgm = document.getElementById('bgm');
   const musicBtn = document.getElementById('musicBtn');
+  bgm.volume = 0.6;
 
   function updateBtnPlaying() {
     musicBtn.classList.remove('paused');
@@ -460,48 +388,43 @@
     musicBtn.title = '加载失败，点击重试';
   }
 
-  function tryPlay() {
-    if (!bgm.paused) return;
-    bgm.volume = 0.6;
-    bgm.play().then(updateBtnPlaying).catch(() => {});
-  }
+  // 一旦能播就播
+  bgm.play().then(updateBtnPlaying).catch(() => {});
+  bgm.addEventListener('canplay', () => { bgm.play().then(updateBtnPlaying).catch(() => {}); });
+  bgm.addEventListener('playing', updateBtnPlaying);
+  bgm.addEventListener('pause', updateBtnPaused);
+  bgm.addEventListener('error', updateBtnError);
 
-  function toggleMusic() {
+  // 用户点按钮切换
+  musicBtn.addEventListener('click', () => {
     if (bgm.paused) {
-      bgm.load();
-      bgm.volume = 0.6;
       bgm.play().then(updateBtnPlaying).catch(updateBtnError);
     } else {
       bgm.pause();
       updateBtnPaused();
     }
-  }
-
-  musicBtn.addEventListener('click', toggleMusic);
-
-  bgm.addEventListener('error', function() {
-    updateBtnError();
   });
 
-  bgm.addEventListener('playing', updateBtnPlaying);
-  bgm.addEventListener('pause', updateBtnPaused);
-
-  // 多事件触发首次自动播放
-  const events = ['click', 'touchstart', 'scroll', 'keydown'];
-  let autoplayTried = false;
-
-  events.forEach(evt => {
-    document.addEventListener(evt, function tryAutoplay() {
-      if (autoplayTried) return;
-      autoplayTried = true;
-      tryPlay();
-    }, { once: true });
+  // ── 粒子 & 闪光 ──
+  const pc = document.getElementById('particles');
+  ['🌸','🩷','💗','💖','🎀','🌷','💐','🪷','✨','💫','💕'].forEach((e,i) => {
+    const p = document.createElement('span');
+    p.className = 'particle';
+    p.textContent = e;
+    p.style.left = Math.random()*100+'%';
+    p.style.animationDuration = (7+Math.random()*12)+'s';
+    p.style.animationDelay = Math.random()*9+'s';
+    p.style.fontSize = (14+Math.random()*24)+'px';
+    pc.appendChild(p);
   });
 
-  // 页面加载完 BGM 就绪后尝试播放
-  bgm.addEventListener('canplay', function() {
-    bgm.volume = 0.6;
-    bgm.play().then(updateBtnPlaying).catch(() => {});
+  const card = document.querySelector('.card');
+  [[8,8],[92,6],[6,94],[94,92],[10,50],[90,48],[50,8],[50,94],[25,15],[75,14],[28,88],[76,86]].forEach(([x,y],i) => {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = x+'%'; s.style.top = y+'%';
+    s.style.animationDelay = (i*0.18)+'s';
+    card.appendChild(s);
   });
 </script>
 
