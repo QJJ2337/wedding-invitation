@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>婚礼邀请函</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #2d0808 0%, #0d0000 100%);
+    font-family: 'Noto Serif SC', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── Music toggle button ── */
+  .music-btn {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #e2c066;
+    background: rgba(180, 30, 30, 0.85);
+    color: #ffd54f;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(255, 180, 40, 0.35);
+    transition: all 0.3s ease;
+    animation: musicPulse 2s ease-in-out infinite;
+  }
+  .music-btn:hover {
+    background: rgba(200, 35, 35, 0.95);
+    box-shadow: 0 0 24px rgba(255, 180, 40, 0.6);
+    transform: scale(1.08);
+  }
+  .music-btn.playing {
+    animation: musicSpin 3s linear infinite;
+    border-color: #ffd54f;
+  }
+  .music-btn.paused {
+    animation: musicPulse 2s ease-in-out infinite;
+    opacity: 0.65;
+  }
+  @keyframes musicPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 180, 40, 0.25); }
+    50% { box-shadow: 0 0 22px rgba(255, 180, 40, 0.5); }
+  }
+  @keyframes musicSpin {
+    0%   { box-shadow: 0 0 16px rgba(255, 200, 50, 0.5); }
+    50%  { box-shadow: 0 0 30px rgba(255, 200, 50, 0.85); }
+    100% { box-shadow: 0 0 16px rgba(255, 200, 50, 0.5); }
+  }
+
+  /* Floating gold particles */
+  .particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .particle {
+    position: absolute;
+    animation: floatUp 9s linear infinite;
+    opacity: 0;
+    font-size: 20px;
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(105vh) rotate(0deg) scale(0); opacity: 0; }
+    8%   { opacity: 0.9; }
+    85%  { opacity: 0.4; }
+    100% { transform: translateY(-10vh) rotate(360deg) scale(1.3); opacity: 0; }
+  }
+
+  /* Main card */
+  .card-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card {
+    position: relative;
+    /* 3:4 aspect ratio */
+    width: 420px;
+    height: 560px;
+    /* Solid red background — classic Chinese red envelope */
+    background: linear-gradient(175deg,
+      #9b1b1b 0%,
+      #b52222 4%,
+      #cc1f1f 10%,
+      #b81c1c 45%,
+      #a31919 55%,
+      #b81c1c 90%,
+      #b52222 96%,
+      #9b1b1b 100%
+    );
+    border-radius: 16px;
+    padding: 32px 34px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Gold glow */
+    box-shadow:
+      0 0 50px rgba(200, 140, 30, 0.35),
+      0 0 120px rgba(180, 100, 20, 0.15),
+      0 20px 70px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    animation: cardFloat 3.5s ease-in-out infinite;
+  }
+
+  @keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* Gold border frame — outer */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 10px;
+    right: 10px; bottom: 10px;
+    border: 1.5px solid rgba(212, 168, 67, 0.5);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  /* Gold border frame — inner */
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 14px; left: 14px;
+    right: 14px; bottom: 14px;
+    border: 1px solid rgba(212, 168, 67, 0.3);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+
+  /* Gold corner flower decorations */
+  .corner {
+    position: absolute;
+    width: 44px; height: 44px;
+    border-color: #e2c066;
+    border-style: solid;
+    opacity: 0.8;
+  }
+  .corner-tl { top: 18px; left: 18px; border-width: 2.5px 0 0 2.5px; border-radius: 6px 0 0 0; }
+  .corner-tr { top: 18px; right: 18px; border-width: 2.5px 2.5px 0 0; border-radius: 0 6px 0 0; }
+  .corner-bl { bottom: 18px; left: 18px; border-width: 0 0 2.5px 2.5px; border-radius: 0 0 0 6px; }
+  .corner-br { bottom: 18px; right: 18px; border-width: 0 2.5px 2.5px 0; border-radius: 0 0 6px 0; }
+
+  /* Top lantern */
+  .top-lantern {
+    font-size: 40px;
+    margin-bottom: 0;
+    filter: drop-shadow(0 0 12px rgba(255, 180, 50, 0.6));
+    animation: lanternGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes lanternGlow {
+    0%   { filter: drop-shadow(0 0 8px rgba(255, 180, 50, 0.4)); }
+    100% { filter: drop-shadow(0 0 22px rgba(255, 180, 50, 0.9)); }
+  }
+
+  /* === ALL TEXT IN GOLD === */
+
+  .title {
+    font-size: 26px;
+    font-weight: 900;
+    color: #ffd54f;
+    margin: 6px 0 4px;
+    letter-spacing: 3px;
+    text-shadow:
+      0 0 10px rgba(255, 200, 60, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Decorative divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+    gap: 12px;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, #e2c066, transparent);
+  }
+  .divider-diamond {
+    font-size: 12px;
+    color: #e2c066;
+    text-shadow: 0 0 6px rgba(255, 200, 60, 0.5);
+  }
+
+  .greeting {
+    font-size: 17px;
+    color: #ffd966;
+    margin: 8px 0;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(255, 200, 60, 0.3);
+  }
+
+  .content {
+    font-size: 15.5px;
+    color: #f5d378;
+    line-height: 2.1;
+    margin: 6px 0;
+    letter-spacing: 1.8px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .content .highlight {
+    color: #ffe082;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  /* Shuangxi double happiness */
+  .shuangxi {
+    font-size: 52px;
+    color: #ffd54f;
+    margin: 8px 0;
+    font-weight: 900;
+    text-shadow:
+      0 0 20px rgba(255, 200, 40, 0.7),
+      0 0 40px rgba(255, 180, 30, 0.4),
+      0 3px 6px rgba(0, 0, 0, 0.3);
+    animation: xiPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes xiPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  /* Info boxes — slightly darker red with gold border */
+  .info-box {
+    background: rgba(0, 0, 0, 0.15);
+    border: 1.5px solid rgba(226, 192, 102, 0.5);
+    border-radius: 10px;
+    padding: 10px 18px;
+    margin: 8px 0;
+  }
+
+  .info-box .icon-label {
+    font-size: 14px;
+    color: #ffe082;
+    font-weight: 700;
+    margin-bottom: 3px;
+    letter-spacing: 1px;
+  }
+
+  .info-box .info-text {
+    font-size: 14.5px;
+    color: #f5d378;
+    line-height: 1.8;
+    letter-spacing: 1.2px;
+  }
+
+  .info-box .info-text .sub {
+    font-size: 12px;
+    color: #d4ad5e;
+  }
+
+  .invite-line {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: #ffd966;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 8px rgba(255, 200, 60, 0.4);
+  }
+
+  /* Rings */
+  .rings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    margin: 2px 0;
+  }
+  .ring-icon {
+    font-size: 24px;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
+    animation: ringGlow 2s ease-in-out infinite alternate;
+  }
+  .ring-icon:nth-child(2) { animation-delay: 0.4s; }
+
+  @keyframes ringGlow {
+    0%   { opacity: 0.5; transform: scale(0.92); }
+    100% { opacity: 1;   transform: scale(1.06); }
+  }
+
+  .bottom-lantern {
+    font-size: 30px;
+    margin-top: 4px;
+    opacity: 0.75;
+    filter: drop-shadow(0 0 8px rgba(255, 180, 50, 0.4));
+  }
+
+  /* Gold sparkles on card surface */
+  .sparkle {
+    position: absolute;
+    width: 5px; height: 5px;
+    background: radial-gradient(circle, #ffe9a0, #d4a843);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkle 1.8s ease-in-out infinite;
+  }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 0.9; transform: scale(1); }
+  }
+
+  /* Responsive */
+  @media (max-width: 460px) {
+    .card {
+      width: 94vw;
+      height: auto;
+      aspect-ratio: 3 / 4;
+      padding: 26px 20px 22px;
+    }
+    .title { font-size: 22px; }
+    .content { font-size: 13px; }
+    .shuangxi { font-size: 42px; }
+    .greeting { font-size: 15px; }
+    .invite-line { font-size: 13.5px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating gold particles background -->
+<div class="particles" id="particles"></div>
+
+<!-- Music toggle button -->
+<button class="music-btn paused" id="musicBtn" title="点击播放音乐 ♪">▶️</button>
+
+<!-- Background Music -->
+<audio id="bgm" loop preload="auto">
+  <source src="今天你要嫁给我.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Main Card -->
+<div class="card-wrapper">
+  <div class="card">
+    <!-- Gold corners -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- Top lantern -->
+    <div class="top-lantern">🏮</div>
+
+    <!-- Title -->
+    <div class="title">💒喜➕喜＝囍❣️</div>
+
+    <!-- Gold divider -->
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-diamond">◆</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Greeting -->
+    <div class="greeting">✨💌 亲爱的工友：</div>
+
+    <!-- Content -->
+    <div class="content">
+      🌺<span class="highlight">良辰已定</span>，吉日待访💞<br>
+      🌹<span class="highlight">吾無星星</span>，遂邀良友💖
+    </div>
+
+    <div class="content">
+      🥳<span class="highlight">敬备戳戳</span>，随候尊驾💞
+    </div>
+
+    <!-- Double happiness -->
+    <div class="shuangxi">囍</div>
+
+    <!-- Invitation -->
+    <div class="invite-line">💌诚挚的邀请您一起共赴晚餐❣️</div>
+
+    <!-- Time -->
+    <div class="info-box">
+      <div class="icon-label">⏰ 时间</div>
+      <div class="info-text">
+        2026年6月28日<br>
+        <span class="sub">（农历五月十四 · 周日）</span>
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div class="info-box">
+      <div class="icon-label">🏡 地址</div>
+      <div class="info-text">
+        新盛璟城一区一幢2103💞
+      </div>
+    </div>
+
+    <!-- Rings -->
+    <div class="rings">
+      <span class="ring-icon">💍</span>
+      <span class="ring-icon">💍</span>
+    </div>
+
+    <!-- Bottom lantern -->
+    <div class="bottom-lantern">🏮</div>
+  </div>
+</div>
+
+<script>
+  // Floating gold particles
+  const particlesContainer = document.getElementById('particles');
+  const emojis = ['✨', '💫', '🌟', '🧧', '🏵️', '💮', '❤️', '💖', '🪷', '🎀', '🌸'];
+
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('span');
+    p.className = 'particle';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (7 + Math.random() * 12) + 's';
+    p.style.animationDelay = Math.random() * 9 + 's';
+    p.style.fontSize = (14 + Math.random() * 24) + 'px';
+    particlesContainer.appendChild(p);
+  }
+
+  // Gold sparkles on card
+  const card = document.querySelector('.card');
+  const positions = [
+    [8, 8], [92, 6], [6, 94], [94, 92],
+    [10, 50], [90, 48], [50, 8], [50, 94],
+    [25, 15], [75, 14], [28, 88], [76, 86]
+  ];
+  positions.forEach(([x, y], i) => {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = x + '%';
+    s.style.top = y + '%';
+    s.style.animationDelay = (i * 0.18) + 's';
+    s.style.width = (3 + Math.random() * 5) + 'px';
+    s.style.height = s.style.width;
+    card.appendChild(s);
+  });
+
+  // ── Music control ──
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+
+  function updateBtnPlaying() {
+    musicBtn.classList.remove('paused');
+    musicBtn.classList.add('playing');
+    musicBtn.textContent = '🎶';
+    musicBtn.title = '暂停音乐';
+  }
+  function updateBtnPaused() {
+    musicBtn.classList.remove('playing');
+    musicBtn.classList.add('paused');
+    musicBtn.textContent = '🥁';
+    musicBtn.title = '点击播放音乐';
+  }
+  function updateBtnError() {
+    musicBtn.classList.remove('playing');
+    musicBtn.classList.add('paused');
+    musicBtn.textContent = '🔇';
+    musicBtn.title = '加载失败，点击重试';
+  }
+
+  function tryPlay() {
+    if (!bgm.paused) return;
+    bgm.volume = 0.6;
+    bgm.play().then(updateBtnPlaying).catch(() => {});
+  }
+
+  function toggleMusic() {
+    if (bgm.paused) {
+      bgm.load();
+      bgm.volume = 0.6;
+      bgm.play().then(updateBtnPlaying).catch(updateBtnError);
+    } else {
+      bgm.pause();
+      updateBtnPaused();
+    }
+  }
+
+  musicBtn.addEventListener('click', toggleMusic);
+
+  bgm.addEventListener('error', function() {
+    updateBtnError();
+    console.log('音频加载失败');
+  });
+
+  bgm.addEventListener('playing', updateBtnPlaying);
+  bgm.addEventListener('pause', updateBtnPaused);
+
+  // 多事件触发首次自动播放
+  const events = ['click', 'touchstart', 'scroll', 'keydown'];
+  let autoplayTried = false;
+
+  events.forEach(evt => {
+    document.addEventListener(evt, function tryAutoplay() {
+      if (autoplayTried) return;
+      autoplayTried = true;
+      tryPlay();
+    }, { once: true });
+  });
+
+  // 如果页面加载完 BGM 已就绪，也尝试播放
+  bgm.addEventListener('canplay', function() {
+    bgm.volume = 0.6;
+    bgm.play().then(updateBtnPlaying).catch(() => {});
+  });
+</script>
+
+</body>
+</html>
