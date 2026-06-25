@@ -312,7 +312,7 @@
 
 <div class="particles" id="particles"></div>
 
-<button class="music-btn paused" id="musicBtn" title="点击播放音乐 ♪">🥁</button>
+<button class="music-btn paused" id="musicBtn" title="播放/暂停音乐">🎵</button>
 
 <audio id="bgm" loop preload="auto" autoplay>
   <source src="今天你要嫁给我.mp3" type="audio/mpeg">
@@ -364,7 +364,7 @@
 </div>
 
 <script>
-  // ── 立即播放 BGM ──
+  // ── BGM：autoplay + 从导航页来会自动播放 ──
   const bgm = document.getElementById('bgm');
   const musicBtn = document.getElementById('musicBtn');
   bgm.volume = 0.6;
@@ -378,8 +378,8 @@
   function updateBtnPaused() {
     musicBtn.classList.remove('playing');
     musicBtn.classList.add('paused');
-    musicBtn.textContent = '🥁';
-    musicBtn.title = '点击播放音乐';
+    musicBtn.textContent = '🎵';
+    musicBtn.title = '播放音乐';
   }
   function updateBtnError() {
     musicBtn.classList.remove('playing');
@@ -388,14 +388,12 @@
     musicBtn.title = '加载失败，点击重试';
   }
 
-  // 一旦能播就播
   bgm.play().then(updateBtnPlaying).catch(() => {});
   bgm.addEventListener('canplay', () => { bgm.play().then(updateBtnPlaying).catch(() => {}); });
   bgm.addEventListener('playing', updateBtnPlaying);
   bgm.addEventListener('pause', updateBtnPaused);
   bgm.addEventListener('error', updateBtnError);
 
-  // 用户点按钮切换
   musicBtn.addEventListener('click', () => {
     if (bgm.paused) {
       bgm.play().then(updateBtnPlaying).catch(updateBtnError);
