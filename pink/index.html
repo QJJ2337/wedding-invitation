@@ -19,6 +19,25 @@
     overflow-x: hidden;
   }
 
+  /* ── 点击进场 ── */
+  .splash {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 200;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 18px;
+    cursor: pointer;
+    background: radial-gradient(ellipse at center, #5c2a3a 0%, #3d1522 40%, #1f0810 100%);
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+  .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .splash-icon { font-size: 66px; animation: sPulse 1.6s ease-in-out infinite; }
+  @keyframes sPulse {
+    0%,100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.12); opacity: 1; }
+  }
+  .splash-title { font-size: 22px; color: #ffe4ec; letter-spacing: 4px; font-weight: 700; }
+  .splash-hint  { font-size: 14px; color: rgba(255,255,255,0.45); letter-spacing: 2px; }
+
   /* Music button */
   .music-btn {
     position: fixed;
@@ -310,6 +329,13 @@
 </head>
 <body>
 
+<!-- 点击进场 -->
+<div class="splash" id="splash">
+  <div class="splash-icon">💌</div>
+  <div class="splash-title">点 击 进 场</div>
+  <div class="splash-hint">🎵 音乐即将响起</div>
+</div>
+
 <div class="particles" id="particles"></div>
 
 <button class="music-btn paused" id="musicBtn" title="播放/暂停音乐">🎵</button>
@@ -364,7 +390,8 @@
 </div>
 
 <script>
-  // ── BGM：autoplay + 从导航页来会自动播放 ──
+  // ── 点击进场 → 播放 BGM ──
+  const splash = document.getElementById('splash');
   const bgm = document.getElementById('bgm');
   const musicBtn = document.getElementById('musicBtn');
   bgm.volume = 0.6;
@@ -388,8 +415,11 @@
     musicBtn.title = '加载失败，点击重试';
   }
 
-  bgm.play().then(updateBtnPlaying).catch(() => {});
-  bgm.addEventListener('canplay', () => { bgm.play().then(updateBtnPlaying).catch(() => {}); });
+  splash.addEventListener('click', () => {
+    splash.classList.add('hidden');
+    bgm.play().then(updateBtnPlaying).catch(updateBtnError);
+  });
+
   bgm.addEventListener('playing', updateBtnPlaying);
   bgm.addEventListener('pause', updateBtnPaused);
   bgm.addEventListener('error', updateBtnError);
